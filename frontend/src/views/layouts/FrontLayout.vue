@@ -13,16 +13,10 @@
 						<v-spacer />
 						<v-toolbar-items class="hidden-sm-and-down">
 							<v-btn to="/" class="mr-2" color="indigo darken-4" text large>
-									Home
-							</v-btn>
-							<v-btn to="/blog/cara-pendaftaran" class="mr-2" color="indigo darken-4" text large>
-									PETUNJUK PENDAFTARAN
-							</v-btn>
-							<v-btn to="/pmb" class="mr-2" color="indigo darken-4" text large>
-									PENDAFTARAN
-							</v-btn>
+									HOME
+							</v-btn>							
 							<v-btn to="/login" color="indigo darken-4" text large>
-									Login
+									LOGIN
 							</v-btn>
 						</v-toolbar-items>
 						<v-menu class="hidden-lg-and-up" v-if="$vuetify.breakpoint.xsOnly">
