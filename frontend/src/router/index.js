@@ -14,6 +14,14 @@ const routes = [
 		component: () => import("../views/pages/front/Home.vue")
 	},
 	{
+		path: "/Kemahasiswaan",
+		name: "KemahasiswaanUser",
+		meta: {
+			title: "KEMAHASISWAAN - ATRIBUT MAHASISWA"
+		},
+		component: () => import("../views/pages/admin/kemahasiswaan/AtributUser.vue")
+	},
+	{
 		path: "/login",
 		name: "FrontLogin",
 		meta: {
