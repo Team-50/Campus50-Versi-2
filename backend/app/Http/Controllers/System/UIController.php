@@ -54,7 +54,13 @@ class UIController extends Controller {
                 'text'=>'PENDEK'
               ]
             ];
-    $roles = $this->getRoleName();
+    $role = $this->getRoleName();
+    switch ($role)
+    {
+      case 'sa':
+        
+      break;
+    }
     // if (count($roles) > 0)
     // {
     //   if ($this->hasRole('superadmin'))
