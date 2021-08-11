@@ -47,6 +47,13 @@
 										outlined
 										dense
 									/>
+									<v-select
+										:items="items"
+										item-text="item_text"
+										label="Pilih Role"
+										dense
+										outlined
+									></v-select>
 									<v-alert
 										outlined
 										dense
@@ -154,6 +161,16 @@
 			}
 		},
 		data: () => ({
+			items: [
+        {
+          item_text: "Super Admin",
+          page: "sa"
+				},
+				{
+          value: "Manajemen",
+          page: "m"
+				}
+			],
 			btnLoading: false,
 			//form
 			form_valid: true,
@@ -187,7 +204,7 @@
 						.post("/auth/login", {
 							username: this.formlogin.username,
 							password: this.formlogin.password,
-							password: this.formlogin.password,
+							//password: this.formlogin.password,
 						})
 						.then(({ data }) => {
 							this.$ajax

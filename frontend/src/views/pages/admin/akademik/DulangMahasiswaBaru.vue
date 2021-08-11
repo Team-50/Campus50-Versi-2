@@ -77,8 +77,8 @@
 						<template v-slot:item.idkelas="{item}">
 							{{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
 						</template>
-						<template v-slot:item.actions="{ item }">
-						  <v-icon
+						<template v-slot:item.actions="{item}">
+							<v-icon
 								small
 								:loading="btnLoading"
 								:disabled="btnLoading"
