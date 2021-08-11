@@ -187,6 +187,7 @@
 						.post("/auth/login", {
 							username: this.formlogin.username,
 							password: this.formlogin.password,
+							password: this.formlogin.password,
 						})
 						.then(({ data }) => {
 							this.$ajax
