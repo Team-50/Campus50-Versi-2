@@ -39,27 +39,46 @@ class UIController extends Controller {
    */
   public function admin ()
   {
-    $config = ConfigurationModel::getCache();    
+    $config = ConfigurationModel::getCache();
     $daftar_semester=[
-              0=>[
-                'id'=>1,
-                'text'=>'GANJIL'
-              ],
-              1=>[
-                'id'=>2,
-                'text'=>'GENAP'
-              ],
-              2=>[
-                'id'=>3,
-                'text'=>'PENDEK'
-              ]
-            ];
+      0=>[
+        'id'=>1,
+        'text'=>'GANJIL'
+      ],
+      1=>[
+        'id'=>2,
+        'text'=>'GENAP'
+      ],
+      2=>[
+        'id'=>3,
+        'text'=>'PENDEK'
+      ]
+    ];
     $role = $this->getRoleName();
     switch ($role)
     {
       case 'sa':
+        $role_name = 'superadmin';
+        $daftar_prodi = ProgramStudiModel::select(\DB::raw('
+          program_studi.kjur,
+          program_studi.kode_epsbed,
+          program_studi.nama_ps,
+          program_studi.kjenjang,
+          jenjang_studi.njenjang,
+          program_studi.konsentrasi
+        '))
+        ->join('jenjang_studi', 'jenjang_studi.kjenjang','program_studi.kjenjang')
+        ->where('program_studi.kjur', '>', 0)
+        ->get();
         
+        $daftar_ta = TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+          ->orderBy('tahun','asc')
+          ->get();
+          
       break;
+      default:
+        $daftar_prodi = [];
+        $role_name = 'undefined';
     }
     // if (count($roles) > 0)
     // {
@@ -263,15 +282,16 @@ class UIController extends Controller {
       return Response()->json([
                     'status'=>1,
                     'pid'=>'fetchdata',
-                    'roles'=>$roles,
-                    // 'daftar_ta'=>$daftar_ta,
+                    'role'=>$role,
+                    'role_name'=>$role_name,
+                    'daftar_ta'=>$daftar_ta,
                     // 'tahun_pendaftaran'=>$tahun_pendaftaran,
                     // 'tahun_akademik'=>$tahun_akademik,
                     // 'daftar_semester'=>$daftar_semester,
                     // 'semester_akademik' => $config['DEFAULT_SEMESTER'],
                     // 'daftar_fakultas'=>$daftar_fakultas,
                     // 'fakultas_id'=>$fakultas_id,
-                    // 'daftar_prodi'=>$daftar_prodi,
+                    'daftar_prodi'=>$daftar_prodi,
                     // 'prodi_id'=>$prodi_id,
                     // 'daftar_kelas'=>$daftar_kelas,
                     // 'idkelas'=>$idkelas,
