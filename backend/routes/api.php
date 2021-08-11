@@ -7,6 +7,9 @@ $router->group(['prefix'=>'v2'], function () use ($router)
 {
     //auth login
     $router->post('/auth/login',['uses'=>'AuthController@login','as'=>'auth.login']);
+
+    //untuk uifront
+	$router->get('/system/setting/uifront',['uses'=>'System\UIController@frontend','as'=>'uifront.frontend']);
 });
 
 $router->group(['prefix'=>'v2','middleware'=>'auth:api'], function () use ($router)

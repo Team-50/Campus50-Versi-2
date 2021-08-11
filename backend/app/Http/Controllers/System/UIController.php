@@ -17,13 +17,13 @@ class UIController extends Controller {
    */
   public function frontend ()
   {
-    $config = ConfigurationModel::getCache();        
-    $captcha_site_key = $config['CAPTCHA_SITE_KEY'];
-    $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
-    $semester_pendaftaran = $config['DEFAULT_SEMESTER_PENDAFTARAN'];
-    $identitas['nama_pt']=$config['NAMA_PT'];
-    $identitas['nama_pt_alias']=$config['NAMA_PT_ALIAS'];
-    $identitas['bentuk_pt']=$config['BENTUK_PT'];
+    $config = ConfigurationModel::getCache();
+    $captcha_site_key = $config['captcha_public_key'];
+    $tahun_pendaftaran = $config['default_tahun_pendaftaran'];
+    $semester_pendaftaran = 1;
+    $identitas['nama_pt']=$config['nama_pt'];
+    $identitas['nama_pt_alias']=$config['nama_pt_alias'];
+    $identitas['bentuk_pt']='sekolahtinggi';
     return Response()->json([
                   'status'=>1,
                   'pid'=>'fetchdata',
