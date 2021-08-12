@@ -47,6 +47,16 @@
 										outlined
 										dense
 									/>
+									<v-select
+										v-model="formlogin.role"
+										:items="items"
+										item-value="id"
+										item-text="role"
+										label="Pilih Role"
+										:rules="rule_role"
+										dense
+										outlined
+									></v-select>
 									<v-alert
 										outlined
 										dense
@@ -154,6 +164,18 @@
 			}
 		},
 		data: () => ({
+			items: [
+        {id:"sa", role: "Super Admin"},
+        {id:"m", role: "Manajemen"},
+        {id:"k", role: "Keuangan"},
+        {id:"on", role: "Operator Nilai"},
+        {id:"d", role: "Dosen"},
+        {id:"dw", role: "Dosen Wali"},
+        {id:"mh", role: "Mahasiswa"},
+        {id:"mb", role: "Mahasiswa Baru"},
+        {id:"al", role: "Alumni"},
+        {id:"ot", role: "Orang Tua Wali"},
+			],
 			btnLoading: false,
 			//form
 			form_valid: true,
@@ -162,6 +184,7 @@
 			formlogin: {
 				username: "",
 				password: "",
+				role:"",
 			},
 			formkonfirmasi: {
 				email: "",
@@ -187,6 +210,7 @@
 						.post("/auth/login", {
 							username: this.formlogin.username,
 							password: this.formlogin.password,
+							page: this.formlogin.role,
 						})
 						.then(({ data }) => {
 							this.$ajax
