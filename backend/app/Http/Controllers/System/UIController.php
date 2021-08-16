@@ -17,13 +17,13 @@ class UIController extends Controller {
    */
   public function frontend ()
   {
-    $config = ConfigurationModel::getCache();
-    $captcha_site_key = $config['captcha_public_key'];
-    $tahun_pendaftaran = $config['default_tahun_pendaftaran'];
-    $semester_pendaftaran = 1;
-    $identitas['nama_pt']=$config['nama_pt'];
-    $identitas['nama_pt_alias']=$config['nama_pt_alias'];
-    $identitas['bentuk_pt']='sekolahtinggi';
+    $config = ConfigurationModel::getCache();        
+    $captcha_site_key = $config['CAPTCHA_SITE_KEY'];
+    $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+    $semester_pendaftaran = $config['DEFAULT_SEMESTER_PENDAFTARAN'];
+    $identitas['nama_pt']=$config['NAMA_PT'];
+    $identitas['nama_pt_alias']=$config['NAMA_PT_ALIAS'];
+    $identitas['bentuk_pt']=$config['BENTUK_PT'];
     return Response()->json([
                   'status'=>1,
                   'pid'=>'fetchdata',
@@ -39,6 +39,23 @@ class UIController extends Controller {
    */
   public function admin ()
   {
+    $config = ConfigurationModel::getCache();    
+    $daftar_semester=[
+              0=>[
+                'id'=>1,
+                'text'=>'GANJIL'
+              ],
+              1=>[
+                'id'=>2,
+                'text'=>'GENAP'
+              ],
+              2=>[
+                'id'=>3,
+                'text'=>'PENDEK'
+              ]
+            ];
+    $roles = $this->getRoleName();
+
     $config = ConfigurationModel::getCache();
     $theme = 'default';
     $daftar_semester=[
@@ -95,11 +112,9 @@ class UIController extends Controller {
         $role_name = 'undefined';
         $daftar_prodi = [];
         $prodi_id = null;
-
         $daftar_ta = [];
         $tahun_pendaftaran = null;
         $tahun_akademik = null;
-
         $daftar_kelas = [];
     }    
     return Response()->json([
@@ -120,6 +135,6 @@ class UIController extends Controller {
       'k_status'=>$k_status,
       'theme'=>$theme,
       'message'=>'Fetch data ui untuk admin berhasil diperoleh',
-    ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
+    ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
   }
 }
