@@ -17,13 +17,13 @@ class UIController extends Controller {
    */
   public function frontend ()
   {
-    $config = ConfigurationModel::getCache();
-    $captcha_site_key = $config['captcha_public_key'];
-    $tahun_pendaftaran = $config['default_tahun_pendaftaran'];
-    $semester_pendaftaran = 1;
-    $identitas['nama_pt']=$config['nama_pt'];
-    $identitas['nama_pt_alias']=$config['nama_pt_alias'];
-    $identitas['bentuk_pt']='sekolahtinggi';
+    $config = ConfigurationModel::getCache();        
+    $captcha_site_key = $config['CAPTCHA_SITE_KEY'];
+    $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+    $semester_pendaftaran = $config['DEFAULT_SEMESTER_PENDAFTARAN'];
+    $identitas['nama_pt']=$config['NAMA_PT'];
+    $identitas['nama_pt_alias']=$config['NAMA_PT_ALIAS'];
+    $identitas['bentuk_pt']=$config['BENTUK_PT'];
     return Response()->json([
                   'status'=>1,
                   'pid'=>'fetchdata',
@@ -39,47 +39,22 @@ class UIController extends Controller {
    */
   public function admin ()
   {
-    $config = ConfigurationModel::getCache();
+    $config = ConfigurationModel::getCache();    
     $daftar_semester=[
-      0=>[
-        'id'=>1,
-        'text'=>'GANJIL'
-      ],
-      1=>[
-        'id'=>2,
-        'text'=>'GENAP'
-      ],
-      2=>[
-        'id'=>3,
-        'text'=>'PENDEK'
-      ]
-    ];
-    $role = $this->getRoleName();
-    switch ($role)
-    {
-      case 'sa':
-        $role_name = 'superadmin';
-        $daftar_prodi = ProgramStudiModel::select(\DB::raw('
-          program_studi.kjur,
-          program_studi.kode_epsbed,
-          program_studi.nama_ps,
-          program_studi.kjenjang,
-          jenjang_studi.njenjang,
-          program_studi.konsentrasi
-        '))
-        ->join('jenjang_studi', 'jenjang_studi.kjenjang','program_studi.kjenjang')
-        ->where('program_studi.kjur', '>', 0)
-        ->get();
-        
-        $daftar_ta = TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-          ->orderBy('tahun','asc')
-          ->get();
-          
-      break;
-      default:
-        $daftar_prodi = [];
-        $role_name = 'undefined';
-    }
+              0=>[
+                'id'=>1,
+                'text'=>'GANJIL'
+              ],
+              1=>[
+                'id'=>2,
+                'text'=>'GENAP'
+              ],
+              2=>[
+                'id'=>3,
+                'text'=>'PENDEK'
+              ]
+            ];
+    $roles = $this->getRoleName();
     // if (count($roles) > 0)
     // {
     //   if ($this->hasRole('superadmin'))
@@ -282,16 +257,15 @@ class UIController extends Controller {
       return Response()->json([
                     'status'=>1,
                     'pid'=>'fetchdata',
-                    'role'=>$role,
-                    'role_name'=>$role_name,
-                    'daftar_ta'=>$daftar_ta,
+                    'roles'=>$roles,
+                    // 'daftar_ta'=>$daftar_ta,
                     // 'tahun_pendaftaran'=>$tahun_pendaftaran,
                     // 'tahun_akademik'=>$tahun_akademik,
                     // 'daftar_semester'=>$daftar_semester,
                     // 'semester_akademik' => $config['DEFAULT_SEMESTER'],
                     // 'daftar_fakultas'=>$daftar_fakultas,
                     // 'fakultas_id'=>$fakultas_id,
-                    'daftar_prodi'=>$daftar_prodi,
+                    // 'daftar_prodi'=>$daftar_prodi,
                     // 'prodi_id'=>$prodi_id,
                     // 'daftar_kelas'=>$daftar_kelas,
                     // 'idkelas'=>$idkelas,
