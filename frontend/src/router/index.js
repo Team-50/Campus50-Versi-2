@@ -14,12 +14,12 @@ const routes = [
 		component: () => import("../views/pages/front/Home.vue")
 	},
 	{
-		path: "/Kemahasiswaan",
-		name: "KemahasiswaanUser",
+		path: "/Kemahasiswaan/atributmahasiswa",
+		name: "KemahasiswaanAtributMahasiswa",
 		meta: {
 			title: "KEMAHASISWAAN - ATRIBUT MAHASISWA"
 		},
-		component: () => import("../views/pages/admin/kemahasiswaan/AtributUser.vue")
+		component: () => import("../views/pages/admin/kemahasiswaan/AtributMahasiswa.vue")
 	},
 	{
 		path: "/login",
