@@ -49,7 +49,7 @@
 									/>
 									<v-select
 										v-model="formlogin.role"
-										:items="items"
+										:items="daftar_role"
 										item-value="id"
 										item-text="role"
 										label="Pilih Role"
@@ -164,7 +164,7 @@
 			}
 		},
 		data: () => ({
-			items: [
+			daftar_role: [
         {id:"sa", role: "Super Admin"},
         {id:"m", role: "Manajemen"},
         {id:"k", role: "Keuangan"},
@@ -184,7 +184,7 @@
 			formlogin: {
 				username: "",
 				password: "",
-				role:"",
+				role: "",
 			},
 			formkonfirmasi: {
 				email: "",
@@ -195,6 +195,9 @@
 			],
 			rule_password: [
 				value => !!value || "Kolom Password mohon untuk diisi !!!",
+			],
+			rule_role: [
+				value => !!value || "Silahkan pilih role, untuk menentukan login sebagai apa !!!",
 			],
 			rule_email: [
 				value => !!value || "Email mohon untuk diisi !!!",
