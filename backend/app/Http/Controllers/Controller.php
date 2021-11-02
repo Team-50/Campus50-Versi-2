@@ -15,19 +15,79 @@ class Controller extends BaseController
 		return Auth::guard('api');
 	}
 	/**
-	 * @return boolean roles of user in array
+	 * digunakan untuk mendapatkan userid
 	 */
-	public function getRoleName() 
+	public function getUserid ()
 	{
-		$user = $this->guard()->user();
-		switch($user->page)
-		{
-			case 'sa':
-				return $user->page;
-			break;
-			default:
-				return null;
-		}
-		
+		return $this->guard()->user()->userid;
 	}
+	/**
+	 * digunakan untuk mendapatkan username
+	 */
+	public function getUsername ()
+	{
+		return $this->guard()->user()->username;
+	}
+	/**
+	 * @return boolean has role
+	 */
+	public function hasRole($name) 
+	{
+		return $this->guard()->user()->hasRole($name);   
+	}
+	/**
+	 * @return object auth api
+	 */
+	public function hasPermissionTo($permission) 
+	{
+		$user = Auth::guard('api')->user();
+		if ($this->guard()->guest())
+		{
+		return true;
+		}
+		elseif ($user->hasPermissionTo($permission) || $user->hasRole('superadmin'))
+		{
+			return true;
+		}
+		else
+		{
+			abort(403,'Forbidden: You have not a privilege to execute this process '.$permission);
+		}        
+	}
+	/**
+	 * @return object auth api
+	 */
+	public function hasAnyPermission($permission) 
+	{
+		$user = Auth::guard('api')->user();
+		if ($this->guard()->guest())
+		{
+			return true;
+		}
+		elseif ($user->hasAnyPermission($permission) || $user->hasRole('superadmin'))
+		{
+			return true;
+		}
+		else
+		{
+			abort(403,'Forbidden: You have not a privilege to execute this process '.$permission);
+		}        
+	}
+	/**
+	 * Display the specified user permissions.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function userpermissions($id)
+	{
+		$user = User::find($id);
+		$permissions=is_null($user)?[]:$user->permissions;
+		return Response()->json([
+			'status'=>1,
+			'pid'=>'fetchdata',
+			'permissions'=>$permissions,    
+			'message'=>'Fetch permission role '.$user->username.' berhasil diperoleh.'
+		], 200); 
+	}	
 }
