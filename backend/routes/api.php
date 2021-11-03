@@ -36,3 +36,10 @@ $router->group(['prefix'=>'h2h/iak', 'middleware'=>'auth:api'], function () use 
 	//payment
 	$router->post('/payment',['uses'=>'Plugins\H2H\IndoBestArthaKreasi\TransaksiController@payment','as'=>'iak.transaksi.payment']);
 });
+
+//android - [gss]
+$router->group(['prefix'=>'android'], function () use ($router)
+{
+	//khs mahasiswa
+	$router->get('/khs',['uses'=>'Plugins\Android\AndroidKHSController@index','as'=>'android.khs.index']);
+});
