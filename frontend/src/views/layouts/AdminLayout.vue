@@ -60,8 +60,8 @@
 		</div>    
 </template>
 <script>
-import {mapGetters} from 'vuex';
-export default {
+	import {mapGetters} from 'vuex';
+	export default {
 		name:'AdminLayout',
 		props: {
 				showrightsidebar: {
@@ -156,5 +156,5 @@ export default {
 						immediate:true
 				},      
 		}
-}
+	}
 </script>

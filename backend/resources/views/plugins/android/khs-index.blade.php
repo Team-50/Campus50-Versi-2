@@ -6,7 +6,13 @@
   <link rel="stylesheet" href="[css/bootstrap/bootstrap.min.css">
 </head>
 <body>
-<a href="/{simak}/khs?nim=3218709&idsmt=2&ta=2019">Test</a>
+<a href="/{simak}/khs?nim=3218703&idsmt=2&ta=2019">Test</a>
+<table class="">
+  <tr>
+    <td width="150">TAHUN AKADEMIK</td>
+    <td></td>
+  </tr>
+</table>
 <table class="table">
   <thead>
     <tr>
@@ -31,5 +37,9 @@
 </table>
 <script src="[js/jquery-3.5.0.min.js"></script>
 <script src="[js/bootstrap/bootstrap.min.js"></script>
+<script>
+  var user_id = Android.User(4);  
+  alert(nim);
+</script>
 </body>
 </html>
