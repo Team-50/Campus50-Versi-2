@@ -528,7 +528,7 @@ class Logic_ReportNilai extends Logic_Report {
                     $sheet->setCellValue("F$row",strtoupper($this->dataReport['jabfung_kaprodi']). ' NIDN : '.$this->dataReport['nidn_kaprodi']);
                     
                     $styleArray=array(								
-                                    'font' => array('bold' => true),                                    
+                                    'font' => array('bold' => true),                            
                                 );																					 
                     $sheet->getStyle("A$row_awal:L$row")->applyFromArray($styleArray);
                     $sheet->getStyle("A$row_awal:L$row")->getAlignment()->setWrapText(true);

@@ -155,7 +155,7 @@ class HelperAkademik {
 	 * @param type $kode
 	 * @return kode matakuliah
 	*/
-	public function getKMatkul ($kode) {
+	public static function getKMatkul ($kode) {
 		$kmatkul=explode('_',$kode);
 		return $kmatkul[1];
 	}

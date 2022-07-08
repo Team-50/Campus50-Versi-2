@@ -506,7 +506,7 @@ class Logic_ReportAkademik extends Logic_Report {
                         $sheet->mergeCells("V15:X15");
                         $sheet->setCellValue('V15','Halaman ke '.($currentSheet+1));
                         $styleArray=array(
-                                        'font' => array('bold' => true),                                                        
+                                        'font' => array('bold' => true),                                                
                                         'alignment' => array('horizontal'=>PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
                                                            'vertical'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER)
                                     );

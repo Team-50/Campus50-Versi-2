@@ -5,44 +5,46 @@ use App\Models\System\ConfigurationModel;
 
 class HelperAuth 
 {
-  public static function getRealRoleName($value) {
-    $role = null;
-    switch($value)
+  /**
+	 * daftar role
+	 */
+	private static $daftar_role=[
+		'sa'=>'superadmin',
+		'm'=>'manajemen',
+    'pmb'=>'pmb',
+    'k'=>'keuangan',
+    'on'=>'operator nilai',
+    'd'=>'dosen',
+    'dw'=>'dosen wali',
+    'mh'=>'mahasiswa',
+    'mb'=>'mahasiswa baru',
+    'al'=>'alumni',
+    'ot'=>'orangtua wali',      
+	];  
+  //digunakan untuk mendapat nama role
+  public static function getRealRoleName($role = null) {    
+    if ($role == null)
     {
-      case 'sa':
-        $role = 'superadmin';
-      break;
-      case 'm':
-        $role = 'manajemen';
-      break;
-      case 'pmb':
-        $role = 'pmb';
-      break;
-      case 'k':
-        $role = 'keuangan';
-      break;
-      case 'on':
-        $role = 'operator nilai';
-      break;
-      case 'd':
-        $role = 'dosen';
-      break;
-      case 'dw':
-        $role = 'dosoenwali';
-      break;
-      case 'm':
-        $role = 'mahasiswa';
-      break;
-      case 'mb':
-        $role = 'mahasiswabaru';
-      break;
-      case 'al':
-        $role = 'alumni';
-      break;
-      case 'ot':
-        $role = 'orangtuawali';
-      break;      
+      return HelperAuth::$daftar_role;
     }
-    return $role;
+    else
+    {
+      return HelperAuth::$daftar_role[$role];
+    }
   }
+  /**
+	* digunakan untuk membuat hash password
+	* @return array
+	*/
+	public static function createHashPassword($password, $salt='', $new=true) {
+		if ($new) {
+			$salt = substr(md5(uniqid(rand(), true)), 0, 6);	
+			$password = hash('sha256', $salt . hash('sha256', $password));
+			$data =array('salt'=>$salt,'password'=>$password);			
+		}else {
+			$data = hash('sha256', $salt . hash('sha256', $password));	
+			$data =array('salt'=>$salt,'password'=>$password);		
+		}
+		return $data;
+	}
 }

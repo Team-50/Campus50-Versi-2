@@ -30,7 +30,7 @@ class ProgramStudiModel extends Model {
 		'kjenjang',
 		'konsentrasi',
 		'idkur',
-		'iddosen',        
+		'iddosen',
 	];
 	/**
 	 * enable auto_increment.
