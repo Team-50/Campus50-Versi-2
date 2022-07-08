@@ -41,13 +41,24 @@ const routes = [
 	},
 	{
 		path: "/elearning/kelas",
-		name: "Elearning Kelas",
+		name: "ElearningKelas",
 		meta: {
 			title: "E-LEARNING - KELAS",
 			requiresAuth: true,
 		},
 		component: () =>
 			import("../views/pages/admin/elearning/ElearningKelas.vue"),
+	},
+	//android
+	{
+		path: "/android/akademik/khs",
+		name: "AndroidKHS",
+		meta: {
+			title: "AndroidAkademikKHS",
+			// requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/android/akademik/AndroidKHS.vue"),
 	},
 	{
 		path: "/404",

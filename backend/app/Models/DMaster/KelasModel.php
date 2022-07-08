@@ -3,6 +3,7 @@
 namespace App\Models\DMaster;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class KelasModel extends Model {    
 	 /**
@@ -37,4 +38,34 @@ class KelasModel extends Model {
 	 * @var string
 	 */
 	public $timestamps = false;
+
+	//digunakan untuk menyimpan ke cache
+	public static function toCache()
+	{
+		$kelas = KelasModel::all()->pluck('nkelas','idkelas'); 
+		Cache::put('kelas', $kelas);
+	}
+	public static function getCache($idx=null)
+	{
+		if (!Cache::has('kelas'))
+		{
+			KelasModel::toCache();
+		}
+
+		if ($idx == null)
+		{
+			return Cache::get('kelas');
+		}
+		else
+		{
+			$kelas=Cache::get('kelas');
+			
+			return $kelas[$idx];
+		}
+	}
+	//digunakan untuk menghapus cache
+	public static function clear()
+	{
+		Cache::flush();
+	}
 }

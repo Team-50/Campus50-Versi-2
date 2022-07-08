@@ -9,3 +9,4 @@ Homestead.yaml
 .DS_STORE
 .phpunit.result.cache
 .editorconfig
+composer.lock

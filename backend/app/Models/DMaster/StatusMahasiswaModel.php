@@ -23,8 +23,8 @@ class StatusMahasiswaModel extends Model {
      * @var array
      */
     protected $fillable = [        
-        'k_status',                      
-        'n_status',            
+        'k_status',              
+        'n_status',    
     ];
     /**
      * enable auto_increment.

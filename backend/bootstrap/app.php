@@ -44,9 +44,12 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('database');
 $app->configure('cors');
+$app->configure('permission');
 $app->configure('auth');
 $app->configure('jwt');
+$app->configure('logging');
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +62,9 @@ $app->middleware([
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'permission' => Spatie\Permission\Middlewares\PermissionMiddleware::class,
+    'role'=> Spatie\Permission\Middlewares\RoleMiddleware::class,
+    'h2hiak'=> App\Http\Middleware\H2HIAKJWTCheckMiddleware::class,
 ]);
 
 /*
@@ -69,8 +75,20 @@ $app->routeMiddleware([
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Spatie\Permission\PermissionServiceProvider::class);
+$app->register(PHPOpenSourceSaver\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
-$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(PHPOpenSourceSaver\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
+
+/*
+|--------------------------------------------------------------------------
+| alias
+|--------------------------------------------------------------------------
+*/
+$app->alias('cache', \Illuminate\Cache\CacheManager::class);
+$app->alias('Helper', \App\Helpers\Helper::class);
+$app->alias('HelperDMaster', \App\Helpers\HelperDMaster::class);
 
 /*
 |--------------------------------------------------------------------------
